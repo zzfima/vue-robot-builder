@@ -80,6 +80,9 @@ export default {
       selectedBaseIndex: 0,
     };
   },
+  created() {
+    console.log('Robot builder created');
+  },
   computed: {
     headBorderStyle() {
       return { border: this.selectedRobot.head.onSale ? '6px solid red' : '6px solid #aaa' };

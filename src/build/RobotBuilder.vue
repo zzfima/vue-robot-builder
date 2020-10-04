@@ -1,35 +1,55 @@
 <template>
   <div class="content">
+    <div class="preview">
+      <div class="preview-content">
+        <div class="top-row">
+          <img :src="selectedRobot.head.src" />
+        </div>
+        <div class="middle-row">
+          <img :src="selectedRobot.leftArm.src" class="rotate-left" />
+          <img :src="selectedRobot.torsos.src" />
+          <img :src="selectedRobot.rightArm.src" class="rotate-right" />
+        </div>
+        <div class="bottom-row">
+          <img :src="selectedRobot.base.src" />
+        </div>
+      </div>
+    </div>
     <button class="add-to-cart" @click="addToCart()">Add to Cart</button>
     <div class="top-row">
       <!-- <div class="top part" :style="[headBorderStyle, borderWidth]">
         <div class="robot-name">{{selectedRobot.head.title}}
           <span v-if="selectedRobot.head.onSale" class="sale">Sale!</span>
         </div> -->
-        <PartSelector
+      <PartSelector
         :parts="availableParts.heads"
         position="top"
-        @partSelected="part => selectedRobot.head=part"/>
+        @partSelected="(part) => (selectedRobot.head = part)"
+      />
     </div>
     <div class="middle-row">
       <PartSelector
-      :parts="availableParts.arms"
-      position="left"
-      @partSelected="part => selectedRobot.leftArm=part"/>
+        :parts="availableParts.arms"
+        position="left"
+        @partSelected="(part) => (selectedRobot.leftArm = part)"
+      />
       <PartSelector
-      :parts="availableParts.torsos"
-      position="center"
-      @partSelected="part => selectedRobot.torsos=part"/>
+        :parts="availableParts.torsos"
+        position="center"
+        @partSelected="(part) => (selectedRobot.torsos = part)"
+      />
       <PartSelector
-      :parts="availableParts.arms"
-      position="right"
-      @partSelected="part => selectedRobot.rightArm=part"/>
+        :parts="availableParts.arms"
+        position="right"
+        @partSelected="(part) => (selectedRobot.rightArm = part)"
+      />
     </div>
     <div class="bottom-row">
       <PartSelector
-      :parts="availableParts.bases"
-      position="bottom"
-      @partSelected="part => selectedRobot.base=part"/>
+        :parts="availableParts.bases"
+        position="bottom"
+        @partSelected="(part) => (selectedRobot.base = part)"
+      />
     </div>
     <div>
       <h1>Cart</h1>
@@ -42,8 +62,8 @@
         </thead>
         <tbody>
           <tr v-for="(robot, index) in cart" :key="index">
-            <td>{{robot.head.title}}</td>
-            <td class="cost">{{robot.cost}}</td>
+            <td>{{ robot.head.title }}</td>
+            <td class="cost">{{ robot.cost }}</td>
           </tr>
         </tbody>
       </table>
@@ -74,7 +94,11 @@ export default {
   mixins: [createdHookMixin],
   computed: {
     headBorderStyle() {
-      return { border: this.selectedRobot.head.onSale ? '6px solid red' : '6px solid #aaa' };
+      return {
+        border: this.selectedRobot.head.onSale
+          ? '6px solid red'
+          : '6px solid #aaa',
+      };
     },
     borderWidth() {
       return { background: this.selectedRobot.head.onSale ? 'pink' : 'yellow' };
@@ -84,10 +108,10 @@ export default {
     addToCart() {
       const robot = this.selectedRobot;
       const cost = robot.head.cost
-      + robot.leftArm.cost
-      + robot.torsos.cost
-      + robot.rightArm.cost
-      + robot.base.cost;
+        + robot.leftArm.cost
+        + robot.torsos.cost
+        + robot.rightArm.cost
+        + robot.base.cost;
       // eslint-disable-next-line prefer-object-spread
       this.cart.push(Object.assign({}, robot, { cost }));
       console.log('Added robot which cost ', cost);
@@ -99,25 +123,25 @@ export default {
 <style lang="scss" scoped>
 .part {
   position: relative;
-  width:165px;
-  height:165px;
+  width: 165px;
+  height: 165px;
   border: 3px solid #aaa;
 }
 .part {
   img {
-    width:165px;
+    width: 165px;
   }
 }
 .top-row {
-  display:flex;
+  display: flex;
   justify-content: space-around;
 }
 .middle-row {
-  display:flex;
+  display: flex;
   justify-content: center;
 }
 .bottom-row {
-  display:flex;
+  display: flex;
   justify-content: space-around;
   border-top: none;
 }
@@ -141,7 +165,7 @@ export default {
 }
 .prev-selector {
   position: absolute;
-  z-index:1;
+  z-index: 1;
   top: -3px;
   left: -28px;
   width: 25px;
@@ -149,14 +173,15 @@ export default {
 }
 .next-selector {
   position: absolute;
-  z-index:1;
+  z-index: 1;
   top: -3px;
   right: -28px;
   width: 25px;
   height: 171px;
 }
-.center .prev-selector, .center .next-selector {
-  opacity:0.8;
+.center .prev-selector,
+.center .next-selector {
+  opacity: 0.8;
 }
 .left .prev-selector {
   top: -28px;
@@ -205,7 +230,8 @@ export default {
   padding: 3px;
   font-size: 16px;
 }
-td, th {
+td,
+th {
   text-align: left;
   padding: 5px;
   padding-right: 20px;
@@ -215,6 +241,27 @@ td, th {
 }
 .sale-border {
   border: 3px solid red;
+}
+.preview {
+  position: absolute;
+  top: -20px;
+  right: 0;
+  width: 210px;
+  height: 210px;
+  padding: 5px;
+}
+.preview-content {
+  border: 1px solid #999;
+}
+.preview img {
+  width: 50px;
+  height: 50px;
+}
+.rotate-right {
+  transform: rotate(90deg);
+}
+.rotate-left {
+  transform: rotate(-90deg);
 }
 .preview {
   position: absolute;

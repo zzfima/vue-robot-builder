@@ -7,7 +7,7 @@
         </div>
         <div class="middle-row">
           <img :src="selectedRobot.leftArm.src" class="rotate-left" />
-          <img :src="selectedRobot.torsos.src" />
+          <img :src="selectedRobot.torso.src" />
           <img :src="selectedRobot.rightArm.src" class="rotate-right" />
         </div>
         <div class="bottom-row">
@@ -36,7 +36,7 @@
       <PartSelector
         :parts="availableParts.torsos"
         position="center"
-        @partSelected="(part) => (selectedRobot.torsos = part)"
+        @partSelected="(part) => (selectedRobot.torso = part)"
       />
       <PartSelector
         :parts="availableParts.arms"
@@ -85,7 +85,7 @@ export default {
       selectedRobot: {
         head: {},
         leftArm: {},
-        torsos: {},
+        torso: {},
         rightArm: {},
         base: {},
       },
@@ -109,7 +109,7 @@ export default {
       const robot = this.selectedRobot;
       const cost = robot.head.cost
         + robot.leftArm.cost
-        + robot.torsos.cost
+        + robot.torso.cost
         + robot.rightArm.cost
         + robot.base.cost;
       // eslint-disable-next-line prefer-object-spread

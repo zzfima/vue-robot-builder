@@ -225,7 +225,7 @@ export default {
   position: relative;
 }
 .add-to-cart {
-  position: absolute;
+  position: relative;
   width: 210px;
   padding: 3px;
   font-size: 16px;
@@ -270,9 +270,6 @@ th {
   width: 210px;
   height: 210px;
   padding: 5px;
-}
-.preview-content {
-  border: 1px solid #999;
 }
 .preview img {
   width: 50px;

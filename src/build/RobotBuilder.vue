@@ -2,7 +2,7 @@
   <div class="content">
     <button class="add-to-cart" @click="addToCart()">Add to Cart</button>
     <div class="top-row">
-      <div class="top part" :style="headBorderStyle">
+      <div class="top part" :style="[headBorderStyle, borderWidth]">
         <div class="robot-name">{{selectedRobot.head.title}}
           <span v-if="selectedRobot.head.onSale" class="sale">Sale!</span>
         </div>
@@ -82,10 +82,10 @@ export default {
   },
   computed: {
     headBorderStyle() {
-      if (this.selectedRobot.head.onSale) {
-        return { border: '3px solid red' };
-      }
-      return { border: '3px solid blue' };
+      return { border: this.selectedRobot.head.onSale ? '6px solid red' : '6px solid #aaa' };
+    },
+    borderWidth() {
+      return { background: this.selectedRobot.head.onSale ? 'pink' : 'yellow' };
     },
     selectedRobot() {
       return {

@@ -17,7 +17,7 @@
         <button @click="selectPreviousLeftArm" class="prev-selector">&#9650;</button>
         <button @click="selectNextLeftArm" class="next-selector">&#9660;</button>
       </div>
-      <div class="center part">
+      <div class="center part" :class="{'sale-border': selectedRobot.torsos.onSale}">
         <img :src="selectedRobot.torsos.src" title="left arm" />
         <button @click="selectPreviousTorso" class="prev-selector">&#9668;</button>
         <button @click="selectNextTorso" class="next-selector">&#9658;</button>

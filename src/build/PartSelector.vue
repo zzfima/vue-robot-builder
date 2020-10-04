@@ -27,6 +27,9 @@ export default {
     position: {
       type: String,
       required: true,
+      validator(value) {
+        return ['left', 'right', 'center', 'bottom', 'top'].includes(value);
+      },
     },
   },
   data() {

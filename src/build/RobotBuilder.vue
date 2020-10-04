@@ -1,5 +1,5 @@
 <template>
-rfct  <div class="content">
+  <div class="content">
     <button class="add-to-cart" @click="addToCart()">Add to Cart</button>
     <div class="top-row">
       <div class="top part">

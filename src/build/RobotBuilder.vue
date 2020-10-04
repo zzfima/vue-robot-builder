@@ -1,9 +1,6 @@
-/* eslint-disable operator-linebreak */
-/* eslint-disable max-len */
-/* eslint-disable max-len */
 <template>
-  <!-- eslint-disable-next-line vue/max-attributes-per-line -->
-  <div>
+rfct  <div class="content">
+    <button class="add-to-cart" @click="addToCart()">Add to Cart</button>
     <div class="top-row">
       <div class="top part">
         <div class="robot-name">{{selectedRobot.head.title}}
@@ -38,6 +35,23 @@
         <button @click="selectNextBase" class="next-selector">&#9658;</button>
       </div>
     </div>
+    <div>
+      <h1>Cart</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Robot</th>
+            <th class="cost">Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(robot, index) in cart" :key="index">
+            <td>{{robot.head.title}}</td>
+            <td class="cost">{{robot.cost}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 <script>
@@ -57,6 +71,7 @@ export default {
   name: 'RobotBuilder',
   data() {
     return {
+      cart: [],
       availableParts,
       selectedHeadIndex: 0,
       selectedLeftArmIndex: 0,
@@ -77,6 +92,17 @@ export default {
     },
   },
   methods: {
+    addToCart() {
+      const robot = this.selectedRobot;
+      const cost = robot.head.cost
+      + robot.leftArm.cost
+      + robot.torsos.cost
+      + robot.rightArm.cost
+      + robot.base.cost;
+      // eslint-disable-next-line prefer-object-spread
+      this.cart.push(Object.assign({}, robot, { cost }));
+      console.log('Added robot which cost ', cost);
+    },
     selectNextHead() {
       this.selectedHeadIndex = getNextValidIndex(
         this.selectedHeadIndex,
@@ -144,23 +170,23 @@ export default {
 <style scoped>
 .part {
   position: relative;
-  width: 165px;
-  height: 165px;
+  width:165px;
+  height:165px;
   border: 3px solid #aaa;
 }
 .part img {
-  width: 165px;
+    width:165px;
 }
 .top-row {
-  display: flex;
+  display:flex;
   justify-content: space-around;
 }
 .middle-row {
-  display: flex;
+  display:flex;
   justify-content: center;
 }
 .bottom-row {
-  display: flex;
+  display:flex;
   justify-content: space-around;
   border-top: none;
 }
@@ -184,7 +210,7 @@ export default {
 }
 .prev-selector {
   position: absolute;
-  z-index: 1;
+  z-index:1;
   top: -3px;
   left: -28px;
   width: 25px;
@@ -192,15 +218,14 @@ export default {
 }
 .next-selector {
   position: absolute;
-  z-index: 1;
+  z-index:1;
   top: -3px;
   right: -28px;
   width: 25px;
   height: 171px;
 }
-.center .prev-selector,
-.center .next-selector {
-  opacity: 0.8;
+.center .prev-selector, .center .next-selector {
+  opacity:0.8;
 }
 .left .prev-selector {
   top: -28px;
@@ -239,5 +264,46 @@ export default {
 }
 .sale {
   color: red;
+}
+.content {
+  position: relative;
+}
+.add-to-cart {
+  position: absolute;
+  width: 210px;
+  padding: 3px;
+  font-size: 16px;
+}
+td, th {
+  text-align: left;
+  padding: 5px;
+  padding-right: 20px;
+}
+.cost {
+  text-align: right;
+}
+.sale-border {
+  border: 3px solid red;
+}
+.preview {
+  position: absolute;
+  top: -20px;
+  right: 0;
+  width: 210px;
+  height: 210px;
+  padding: 5px;
+}
+.preview-content {
+  border: 1px solid #999;
+}
+.preview img {
+  width: 50px;
+  height: 50px;
+}
+.rotate-right {
+  transform: rotate(90deg);
+}
+.rotate-left {
+  transform: rotate(-90deg);
 }
 </style>
